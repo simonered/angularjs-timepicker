@@ -1,21 +1,13 @@
 angular.module('timepicker', [])
     .directive('timepicker', function() {
-        // Runs during compile
         return {
-            // priority: 1,
-            // terminal: true,
             scope: {
                 hour: "=",
                 minute: "="
-            }, // {} = isolate, true = child, false/undefined = no change
-            // controller: function($scope, $element, $attrs, $transclude) {},
-            // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-            restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-            //template: '',
-            templateUrl: './timeTemplate.html',
+            },
+            restrict: 'E',
+            templateUrl: 'time-picker.html',
             replace: true,
-            // transclude: true,
-            // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
             link: function($scope, iElm, iAttrs, controller) {
                 var qHourSlot = iElm.find("#hourSlot");
                 var qMinuteSlot = iElm.find("#minuteSlot");
@@ -40,12 +32,9 @@ angular.module('timepicker', [])
                     var degree = -$scope.minute / 5 * 15;
                     qMinuteSlot.css("transform", "rotateX(" + degree + "deg)");
                     qMinuteSlot.css("-webkit-transform", "rotateX(" + degree + "deg)");
-
                 }
 
-
                 function fillHourSlot() {
-
                     for (var i = 0; i < 24; i++) {
                         var li = document.createElement("li");
                         li.innerHTML = numToString(i);
@@ -57,7 +46,6 @@ angular.module('timepicker', [])
                 }
 
                 function fillMinuteSlot() {
-
                     for (var i = 0; i < 24; i++) {
                         var li = document.createElement("li");
                         li.innerHTML = numToString((i % 12) * 5);
@@ -90,7 +78,7 @@ angular.module('timepicker', [])
                         startY = touchY;
                         startTimeStamp = e.timeStamp;
 
-                        //If there is transition undone, just stop it.
+                        // If there is transition undone, just stop it.
                         qDom.css("transition", "");
                         qDom.css("-webkit-transition", "");
                         qDom.off("transitionend");
@@ -118,7 +106,8 @@ angular.module('timepicker', [])
                         e.preventDefault();
                         e.stopPropagation();
 
-                        //if the duration of swipe is too short, just ignore it.
+                        // if the duration of swipe is too short, just ignore
+						// it.
                         if ((e.timeStamp - startTimeStamp) < 100) {
                             return;
                         }
@@ -183,7 +172,6 @@ angular.module('timepicker', [])
                             $scope.$apply(function() {
                                 setViewValueToScope();
                             });
-
                         });
                     }
 
@@ -205,11 +193,12 @@ angular.module('timepicker', [])
                         var sinw = transform.m23;
                         var angle = Math.round(Math.atan2(sinw, cosw) * (180 / Math.PI));
                         return angle;
-
                     }
 
                 }
 
             }
         };
+    }).run(function($templateCache) {
+    	  $templateCache.put('time-picker.html', '<div class="timerPicker"> <div id="activeArea"></div> <div id="slots"> <div id="hourSlotWrapper"> <ul id="hourSlot"> </ul> <div id="timeLabel">HH:</div> </div> <div id="minuteSlotWrapper"> <ul id="minuteSlot"></ul> <div id="timeLabel">MM:</div> </div> </div> </div>');
     });

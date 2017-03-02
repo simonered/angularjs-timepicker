@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Demo for Angular IOS timepicker</title>
+	<style type="text/css">
+		body {
+			background-color: #f0f3f3;
+			padding: 50px;
+		}
+		
+		.cont {
+			margin-top: 50px; 
+			font-size: 56px; 
+			text-align: center
+		}
+	</style>
+	
+	<link href="../src/css/angular-ios-timepicker.css" rel="stylesheet" media="screen" />
+	
+	<script src="./jquery.min.js"></script>
+	<script src="../bower_components/angular/angular.min.js"></script>
+	<script src="../src/js/angular-ios-timepicker.js"></script>
+	<script src="./demo.js"></script>
+</head>
+
+<body ng-app="demoApp" ng-controller="demoCtrl">
+	<script type="text/ng-template" id="time-picker.html">
+		<div class="timerPicker">
+		    <div id="activeArea"></div>
+		    <div id="slots">
+		        <div id="hourSlotWrapper">
+		            <ul id="hourSlot">
+		            </ul>
+		            <div id="timeLabel">HH:</div>
+		        </div>
+		        <div id="minuteSlotWrapper">
+		            <ul id="minuteSlot"></ul>
+		            <div id="timeLabel">MM:</div>
+		        </div>
+		    </div>
+		</div>
+	</script>
+
+	<div>
+		<timepicker hour="hour" minute="minute"></timepicker>
+		
+		<div class="cont">{{hour}}:{{minute}}</div>
+	</div>
+</body>
+
+</html>
